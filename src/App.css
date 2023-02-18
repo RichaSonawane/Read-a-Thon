@@ -97,7 +97,7 @@ a:hover {
 
 .app {
 	background-color: #E5FCFF;
-	color: #5690FF;
+	color: #171717;
 	min-height: 100vh;
 }
 
@@ -293,7 +293,7 @@ button {
 	padding: 10px 20px;
 	transition: .5s;
 	margin-top: 10px;
-	width:300px;
+	width:auto;
 	font-size: 15px;
 }
 
@@ -304,14 +304,47 @@ button:hover {
 }
 
 .book-details{
-	min-height: 80vh;
-	width: 100%;
+
 	display: flex;
-	justify-content: space-evenly;
+	justify-content:space-evenly;
 	padding: 10px;
+	flex-wrap: wrap;
+  box-sizing: border-box;
+align-items: center;
+margin: 10px;
+	height: 600px;
+  align-items:flex-start;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.6);
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  align-self: center;
+  flex-wrap: wrap;
+
+}
+
+
+.book-details h2
+
+.book-image{
+	width: 100px;
 }
 
 .book-description{
-	margin: 10px ;
+	width:80%;
 	
+  align-items:flex-start;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  align-self: center;
+  flex-wrap: wrap;
+
 }

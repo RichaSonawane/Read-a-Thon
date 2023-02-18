@@ -11,6 +11,7 @@ import Profile from './components/Profile'
 import Booklist from './components/Booklist'
 import Favorites from './components/Favorites'
 import BookDetails from './components/BookDetails'
+import Log from './components/Log'
 
 const App = () => {
 
@@ -36,6 +37,10 @@ const App = () => {
         <Route
           path="/books/:id"
           element={authCtx.token ? <BookDetails /> : <Navigate to="/auth" />}
+        />
+        <Route
+          path="/books/:id/log"
+          element={authCtx.token ? <Log/> : <Navigate to="/auth" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
