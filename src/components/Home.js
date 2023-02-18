@@ -1,9 +1,13 @@
+import BallAnimation from '../assets/BallAnimation.mp4'
+
 const Home = () => {
     return (
-        <main>
-            <h1>There are no posts yet!</h1>
-        </main>
-    )
+      <main>
+        <div>
+          <video src={BallAnimation} autoPlay loop muted id="video"></video>
+        </div>
+      </main>
+    );
 }
 
 export default Home

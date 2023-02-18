@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../store/authContext";
-import logo from "../assets/dm-logo-white.svg";
+import logo from "../assets/logo.png";
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
@@ -11,7 +11,7 @@ const Header = () => {
     <header className="header flex-row">
       <div className="flex-row">
         <img src={logo} alt="dm-logo" className="logo" />
-        <h2>Social Mountain</h2>
+        <h2>Read-a-Thon</h2>
       </div>
       <nav>
         {authCtx.token ? (
@@ -20,10 +20,10 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="profile">Profile</Link>
+              <Link to="book">Booklist</Link>
             </li>
             <li>
-              <Link to="form">Add Post</Link>
+              <Link to="favorites">Favorites</Link>
             </li>
             <li>
               <button className="logout-btn" onClick={() => authCtx.logout()}>

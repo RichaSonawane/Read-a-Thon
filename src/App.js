@@ -8,6 +8,9 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
+import Booklist from './components/Booklist'
+import Favorites from './components/Favorites'
+import BookDetails from './components/BookDetails'
 
 const App = () => {
 
@@ -20,15 +23,19 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route
           path="/auth"
-          element={!authCtx.token ? <Auth /> : <Navigate to="/" />}
+          element={!authCtx.token ? <Auth /> : <Navigate to="/books" />}
         />
         <Route
-          path="/form"
-          element={authCtx.token ? <Form /> : <Navigate to="/auth" />}
+          path="/book"
+          element={authCtx.token ? <Booklist /> : <Navigate to="/auth" />}
         />
         <Route
-          path="/profile"
-          element={authCtx.token ? <Profile /> : <Navigate to="/auth" />}
+          path="/favorites"
+          element={authCtx.token ? <Favorites /> : <Navigate to="/auth" />}
+        />
+        <Route
+          path="/books/:id"
+          element={authCtx.token ? <BookDetails /> : <Navigate to="/auth" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
