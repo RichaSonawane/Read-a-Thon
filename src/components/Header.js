@@ -23,13 +23,13 @@ const Header = () => {
               <Link to="book">Booklist</Link>
             </li>
             <li>
-              <Link to="favorites">Favorites</Link>
+              <Link to="favorites">Favorites List</Link>
             </li>
             <li>
               <button className="logout-btn" onClick={() => authCtx.logout()}>
                 Logout
               </button>
-            </li>
+            </li> 
           </ul>
         ) : (
           <ul className="main-nav">
