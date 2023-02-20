@@ -23,7 +23,7 @@ const Header = () => {
               <Link to="book">Booklist</Link>
             </li>
             <li>
-              <Link to="favorites">Favorites List</Link>
+              <Link to="favorites">FavoritesList</Link>
             </li>
             <li>
               <Link to="review">Reviews</Link>

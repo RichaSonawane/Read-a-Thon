@@ -11,6 +11,7 @@ import Favorites from './components/Favorites'
 import BookDetails from './components/BookDetails'
 import Log from './components/Log'
 import Reviews from './components/Reviews'
+import ReviewDisplay from './components/ReviewDisplay'
 
 const App = () => {
 
@@ -43,7 +44,7 @@ const App = () => {
         />
         <Route
           path="/review"
-          element={authCtx.token ? <Reviews/> : <Navigate to="/auth" />}
+          element={authCtx.token ? <ReviewDisplay/> : <Navigate to="/auth" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LoadingModal from "./LoadingModal";
 
 import AuthContext from "../store/authContext";
 
@@ -83,10 +84,13 @@ const Reviews = () => {
   });
 
   return mappedReviews.length >= 1 ? (
-    <main>{mappedReviews}</main>
+    <main>
+      <h3>Reviews by you</h3>
+      {mappedReviews}
+    </main>
   ) : (
     <main>
-      <h1>Loading</h1>
+      <LoadingModal />
     </main>
   );
 }

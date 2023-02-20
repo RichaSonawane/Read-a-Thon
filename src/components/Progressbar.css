@@ -22,12 +22,12 @@
     width: 0%;
 
     /* Style */
-    background: rgb(255, 174, 105);
+    background: rgb(90, 144, 245);
     background: linear-gradient(
         180deg,
-        rgba(255, 174, 105, 1) 0%,
-        rgba(255, 173, 102, 1) 32%,
-        rgba(255, 132, 25, 1) 100%
+        rgb(142, 177, 242) 0%,
+        rgb(58, 139, 239) 32%,
+        rgb(3, 87, 196) 100%
     );
 }
 

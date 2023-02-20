@@ -3,7 +3,7 @@ import {API_URL} from './API';
 import axios from 'axios';
 import { useAppContext } from './context/appContext';
 import {useNavigate} from 'react-router-dom'
-
+import AllReviews from './AllReviews';
 
 
 const Booklist = () => {
@@ -30,28 +30,35 @@ const Booklist = () => {
     },[])
 
   return (
-    <div className="book-list">
-      {books.map((book) => (
-        <div key={book.id} className="book">
-          <div>
-            <h4>{book.title}</h4>
+    <div>
+      <div className="book-list">
+        {books.map((book) => (
+          <div key={book.id} className="book">
+            <div>
+              <h4>{book.title}</h4>
+            </div>
+            <div>
+              <img
+                src={book.image_url}
+                alt="#"
+                id="bookImg"
+                onClick={() => navigate(`/books/${book.id}`)}
+              />
+            </div>
+            <div>
+              {favoriteChecker(book.id) ? (
+                <button onClick={() => removeFromFavorites(book.id)}>
+                  Remove from Favorites
+                </button>
+              ) : (
+                <button onClick={() => addToFavorites(book)}>
+                  Add to Favorites
+                </button>
+              )}
+            </div>
           </div>
-          <div>
-            <img src={book.image_url} alt="#" id="bookImg" onClick={()=>navigate(`/books/${book.id}`)} />
-          </div>
-          <div>
-            {favoriteChecker(book.id) ? (
-              <button onClick={() => removeFromFavorites(book.id)}>
-                Remove from Favorites
-              </button>
-            ) : (
-              <button onClick={() => addToFavorites(book)}>
-                Add to Favorites
-              </button>
-            )}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

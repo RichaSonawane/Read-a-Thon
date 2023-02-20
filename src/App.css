@@ -151,7 +151,7 @@ main {
 }
 
 .logout-btn:hover {
-	color: #5690FF;
+	color: #171717;
 }
 
 
@@ -240,7 +240,7 @@ main {
 
 .post-card {
 	width: 500px;
-	border: 1px solid #811010;
+	border: 1px solid #1d75e8;
 	border-radius: 5px;
 	margin: 25px;
 	padding: 15px;
