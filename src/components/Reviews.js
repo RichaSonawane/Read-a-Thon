@@ -1,17 +1,19 @@
-const Form = () => {
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-    return (
-        <main>
-            <h1>Form</h1>
-        </main>
-    )
+import AuthContext from "../store/authContext";
+import React from 'react'
+
+const Reviews = () => {
+  return (
+    <div>Reviews</div>
+  )
 }
 
-export default Form
+export default Reviews
 
-
-
-// YOU WILL BE INSTRUCTED WHEN YOU SHOULD 
+// YOU WILL BE INSTRUCTED WHEN YOU SHOULD
 // UNCOMMENT THIS CODE
 
 // import {useState, useContext} from 'react'
@@ -45,14 +47,14 @@ export default Form
 //     return (
 //         <main>
 //             <form className='form add-post-form' onSubmit={handleSubmit}>
-//                 <input 
+//                 <input
 //                     type='text'
 //                     placeholder='title'
 //                     value={title}
 //                     onChange={e => setTitle(e.target.value)}
 //                     className='form-input add-post-input'
 //                 />
-//                 <textarea 
+//                 <textarea
 //                     type='text'
 //                     placeholder='content'
 //                     value={content}
@@ -64,7 +66,7 @@ export default Form
 //                         <label htmlFor='private-status'>
 //                             private:
 //                         </label>
-//                         <input 
+//                         <input
 //                             type='radio'
 //                             name='status'
 //                             id='private-status'
@@ -77,7 +79,7 @@ export default Form
 //                         <label htmlFor='public-status'>
 //                             public:
 //                         </label>
-//                         <input 
+//                         <input
 //                             type='radio'
 //                             name='status'
 //                             id='public-status'

@@ -25,7 +25,8 @@ const Booklist = () => {
         .then(res=>{
             console.log(res.data);
             setBooks(res.data)
-        }).catch(err=>console.log(err))    
+        }).catch(err=>console.log(err))   
+        
     },[])
 
   return (

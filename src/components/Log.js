@@ -1,12 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BOOK_DETAILS_URL } from './API';
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../store/authContext";
 
 const Log = () => {
   const { id } = useParams();
 
   const [book, setBook] = useState({});
+  let [reviewStatus, setReviewStatus]= useState(false);
+   
+  const { token, userId } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [status, setStatus] = useState(true);
+
+
 
   useEffect(() => {
     axios
@@ -16,6 +27,32 @@ const Log = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+
+
+ const handleSubmit = e => {
+        e.preventDefault()
+setTitle(book.title);
+
+console.log("i m here", title)
+         axios
+          .post(
+            "http://localhost:5000/reviews",
+            { title, content,status, userId },
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          )
+          .then(() => {
+            navigate("/reviews");
+          })
+          .catch((err) => console.log(err));
+    }
+
+ 
+
 
   return (
     <div className="book-details">
@@ -33,10 +70,48 @@ const Log = () => {
         <h2>Pages</h2>
         <p>{book.num_pages}</p>
       </div>
-      <button>progress</button>
+      <button onClick={() => setReviewStatus(true)}>Review</button>
+      {reviewStatus ? (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <textarea
+              type="text"
+              placeholder="Write review here"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="form-input add-post-input textarea"
+            />
+            <div className="flex-row status-container">
+              <div className="radio-btn">
+                <label htmlFor="private-status">private:</label>
+                <input
+                  type="radio"
+                  name="status"
+                  id="private-status"
+                  value={true}
+                  onChange={(e) => setStatus(e.target.value)}
+                  checked={true}
+                />
+              </div>
+              <div className="radio-btn">
+                <label htmlFor="public-status">public:</label>
+                <input
+                  type="radio"
+                  name="status"
+                  id="public-status"
+                  value={false}
+                  onChange={(e) => setStatus(e.target.value)}
+                />
+              </div>
+            </div>
+            <button className="form-btn">submit</button>
+          </div>
+        </form>
+      ) : (
+        <h1> </h1>
+      )}
     </div>
   );
-}
-
+      }
 
 export default Log;

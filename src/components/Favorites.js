@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useEffect, useContext} from 'react'
 import { useAppContext } from "./context/appContext";
 import { useNavigate } from "react-router-dom";
 
-const Favorites = () => {
 
+
+const Favorites = () => {
+ 
     const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
 
     console.log("favorite books are", favorites);
