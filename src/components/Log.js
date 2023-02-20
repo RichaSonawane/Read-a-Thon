@@ -33,7 +33,7 @@ const Log = () => {
  const handleSubmit = e => {
         e.preventDefault()
 setTitle(book.title);
-
+let title= book.title;
 console.log("i m here", title)
          axios
           .post(
@@ -46,7 +46,7 @@ console.log("i m here", title)
             }
           )
           .then(() => {
-            navigate("/reviews");
+            navigate("/review");
           })
           .catch((err) => console.log(err));
     }

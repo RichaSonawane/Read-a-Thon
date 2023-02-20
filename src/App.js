@@ -42,8 +42,8 @@ const App = () => {
           element={authCtx.token ? <Log /> : <Navigate to="/auth" />}
         />
         <Route
-          path="/books/:id/review"
-          element={authCtx.token ? <Reviews /> : <Navigate to="/auth" />}
+          path="/review"
+          element={authCtx.token ? <Reviews/> : <Navigate to="/auth" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

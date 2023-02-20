@@ -26,10 +26,13 @@ const Header = () => {
               <Link to="favorites">Favorites List</Link>
             </li>
             <li>
+              <Link to="review">Reviews</Link>
+            </li>
+            <li>
               <button className="logout-btn" onClick={() => authCtx.logout()}>
                 Logout
               </button>
-            </li> 
+            </li>
           </ul>
         ) : (
           <ul className="main-nav">

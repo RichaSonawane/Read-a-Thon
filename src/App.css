@@ -240,7 +240,7 @@ main {
 
 .post-card {
 	width: 500px;
-	border: 1px solid #f0f0f0;
+	border: 1px solid #811010;
 	border-radius: 5px;
 	margin: 25px;
 	padding: 15px;
@@ -311,8 +311,8 @@ button:hover {
 	flex-wrap: wrap;
   box-sizing: border-box;
 align-items: center;
-margin: 10px;
-height: 600px;
+margin: 30px;
+height: 80%;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -334,6 +334,7 @@ height: 600px;
 
 .book-description{
 	width:80%;
+	height: auto;
 	align-items:flex-start;
   display: flex;
   flex-direction: column;

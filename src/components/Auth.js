@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react';
 import axios from 'axios';
 import AuthContext from '../store/authContext';
+import { useNavigate } from "react-router-dom";
  
 const Auth = () => {
    const [username, setUsername] = useState('')
@@ -8,6 +9,7 @@ const Auth = () => {
    const [register, setRegister] = useState(true)
 
    const authCtx = useContext(AuthContext)
+     const navigate = useNavigate();
  
    const submitHandler = e => {
        e.preventDefault()
@@ -24,6 +26,7 @@ const Auth = () => {
     .then(({data})=>{
         console.log("after auth", data)
         authCtx.login(data.token, data.exp, data.userId)
+        navigate("/book");
     })
     .catch((err)=>{
         setPassword('')

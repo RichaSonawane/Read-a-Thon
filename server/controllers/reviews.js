@@ -20,8 +20,25 @@ module.exports = {
   }
 },
 
-  getCurrentUserReviews: (req, res) => {
-    console.log("current user posts");
+  getCurrentUserReviews: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const reviews = await Review.findAll({
+        where: { userId: userId },
+        include: [
+          {
+            model: User,
+            required: true,
+            attributes: [`username`],
+          },
+        ],
+      });
+      res.status(200).send(reviews)
+    } catch (error) {
+      console.log("ERROR IN getCurrentUserPosts");
+      console.log(error);
+      res.sendStatus(400);
+    }
   },
 
   addReview: async (req, res) => {
