@@ -347,3 +347,13 @@ height: 80%;
   flex-wrap: wrap;
 
 }
+
+.dropdowncontent {
+  display: none;
+  position: absolute;
+  background-color: #1a0303;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}

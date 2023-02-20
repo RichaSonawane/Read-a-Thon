@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BOOK_DETAILS_URL } from './API';
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/authContext";
+import Progressbar from './Progressbar';
 
 const Log = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const Log = () => {
     const [content, setContent] = useState("");
     const [status, setStatus] = useState(true);
 
-
+const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     axios
@@ -70,43 +71,61 @@ console.log("i m here", title)
         <h2>Pages</h2>
         <p>{book.num_pages}</p>
       </div>
-      <button onClick={() => setReviewStatus(true)}>Review</button>
+      <div>
+        <h3>How much did you read?</h3>
+        <select
+          name="progress"
+          id="progress"
+          onChange={(e) => setProgress(e.target.value)}
+        >
+          <option value="20">0%</option>
+          <option value="20">20%</option>
+          <option value="40">40%</option>
+          <option value="60">60%</option>
+          <option value="80">80%</option>
+          <option value="100">100%</option>
+        </select>
+        <Progressbar value={progress} />
+      </div>
+      <button onClick={() => setReviewStatus(true)} >Review</button>
       {reviewStatus ? (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <textarea
-              type="text"
-              placeholder="Write review here"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="form-input add-post-input textarea"
-            />
-            <div className="flex-row status-container">
-              <div className="radio-btn">
-                <label htmlFor="private-status">private:</label>
-                <input
-                  type="radio"
-                  name="status"
-                  id="private-status"
-                  value={true}
-                  onChange={(e) => setStatus(e.target.value)}
-                  checked={true}
-                />
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <textarea
+                type="text"
+                placeholder="Write review here"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="form-input add-post-input textarea"
+              />
+              <div className="flex-row status-container">
+                <div className="radio-btn">
+                  <label htmlFor="private-status">private:</label>
+                  <input
+                    type="radio"
+                    name="status"
+                    id="private-status"
+                    value={true}
+                    onChange={(e) => setStatus(e.target.value)}
+                    checked={true}
+                  />
+                </div>
+                <div className="radio-btn">
+                  <label htmlFor="public-status">public:</label>
+                  <input
+                    type="radio"
+                    name="status"
+                    id="public-status"
+                    value={false}
+                    onChange={(e) => setStatus(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className="radio-btn">
-                <label htmlFor="public-status">public:</label>
-                <input
-                  type="radio"
-                  name="status"
-                  id="public-status"
-                  value={false}
-                  onChange={(e) => setStatus(e.target.value)}
-                />
-              </div>
+              <button className="form-btn">submit</button>
             </div>
-            <button className="form-btn">submit</button>
-          </div>
-        </form>
+          </form>
+        </div>
       ) : (
         <h1> </h1>
       )}
