@@ -5,6 +5,7 @@ const cors = require("cors");
 const { sequelize } = require("./util/database");
 const { User } = require("./models/user");
 const { Review } = require("./models/review");
+//const {UserList}= require("./models/userList")
 
 const { PORT } = process.env;
 const { register, login } = require("./controllers/auth");
@@ -15,6 +16,7 @@ const {
   addReview,
   editReview,
   deleteReview,
+  addBook,
 } = require("./controllers/reviews");
 
 
@@ -26,6 +28,7 @@ app.use(cors());
 User.hasMany(Review);
 Review.belongsTo(User);
 
+
 //AUTH
 app.post('/register', register)
 app.post('/login', login)
@@ -34,6 +37,7 @@ app.post('/login', login)
 app.get('/reviews', getAllReviews)
 
 // CRUD POSTS - auth required
+app.post("/userList", isAuthenticated, addBook)
 app.get("/userreviews/:userId", getCurrentUserReviews);
 app.post("/reviews", isAuthenticated, addReview);
 app.put("/reviews/:id", isAuthenticated, editReview);

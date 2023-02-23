@@ -12,6 +12,7 @@ import BookDetails from './components/BookDetails'
 import Log from './components/Log'
 import Reviews from './components/Reviews'
 import ReviewDisplay from './components/ReviewDisplay'
+import Footer from './components/Footer'
 
 const App = () => {
 
@@ -20,34 +21,39 @@ const App = () => {
   return (
     <div className="app">
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/auth"
-          element={!authCtx.token ? <Auth /> : <Navigate to="/books" />}
-        />
-        <Route
-          path="/book"
-          element={authCtx.token ? <Booklist /> : <Navigate to="/auth" />}
-        />
-        <Route
-          path="/favorites"
-          element={authCtx.token ? <Favorites /> : <Navigate to="/auth" />}
-        />
-        <Route
-          path="/books/:id"
-          element={authCtx.token ? <BookDetails /> : <Navigate to="/auth" />}
-        />
-        <Route
-          path="/books/:id/log"
-          element={authCtx.token ? <Log /> : <Navigate to="/auth" />}
-        />
-        <Route
-          path="/review"
-          element={authCtx.token ? <ReviewDisplay/> : <Navigate to="/auth" />}
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+     
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/auth"
+            element={!authCtx.token ? <Auth /> : <Navigate to="/books" />}
+          />
+          <Route
+            path="/book"
+            element={authCtx.token ? <Booklist /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/favorites"
+            element={authCtx.token ? <Favorites /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/books/:id"
+            element={authCtx.token ? <BookDetails /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/books/:id/log"
+            element={authCtx.token ? <Log /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/review"
+            element={
+              authCtx.token ? <ReviewDisplay /> : <Navigate to="/auth" />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+   
+      <Footer />
     </div>
   );
 }

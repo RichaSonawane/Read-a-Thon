@@ -1,9 +1,11 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect,useContext} from 'react';
 import {API_URL} from './API';
 import axios from 'axios';
 import { useAppContext } from './context/appContext';
 import {useNavigate} from 'react-router-dom'
 import AllReviews from './AllReviews';
+import AuthContext from "../store/authContext";
+import Star from './Star';
 
 
 const Booklist = () => {
@@ -11,7 +13,7 @@ const Booklist = () => {
     const [books, setBooks]= useState([])
 
     const {favorites , addToFavorites, removeFromFavorites}= useAppContext();
-
+    const { token, userId } = useContext(AuthContext);
     //console.log("favorite books are", favorites)
     const navigate = useNavigate();
 
@@ -27,7 +29,11 @@ const Booklist = () => {
             setBooks(res.data)
         }).catch(err=>console.log(err))   
         
+
+     
     },[])
+
+
 
   return (
     <div>
@@ -45,6 +51,7 @@ const Booklist = () => {
                 onClick={() => navigate(`/books/${book.id}`)}
               />
             </div>
+            <Star stars={book.rating} reviews={book.review_count} />
             <div>
               {favoriteChecker(book.id) ? (
                 <button onClick={() => removeFromFavorites(book.id)}>

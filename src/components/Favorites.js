@@ -1,8 +1,9 @@
-import React,{useEffect, useContext} from 'react'
+import React,{useEffect, useContext,useCallback} from 'react'
 import { useAppContext } from "./context/appContext";
 import { useNavigate } from "react-router-dom";
-
-
+import AuthContext from "../store/authContext";
+import axios from 'axios';
+import Star from './Star';
 
 const Favorites = () => {
  
@@ -16,6 +17,38 @@ const Favorites = () => {
       return boolean;
     };
 
+     const { token, userId } = useContext(AuthContext);
+      
+    useEffect(() => {
+
+    
+
+        favorites.map((book) => {
+          console.log(
+            "book",
+            book["title"],
+            book["id"],
+            book["image_url"],
+            userId
+          );
+          let body = {
+            bookId: book["id"],
+            title: book["title"],
+            image: book["image_url"],
+            userId: userId,
+          };
+          axios
+            .put("/userList", body, {
+              headers: {
+                authorization: token,
+              },
+            })
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log("error in post"));
+        });
+      
+    }, [[favorites]]);
+
 
   return (
     <div className="favorites">
@@ -27,7 +60,9 @@ const Favorites = () => {
             </div>
             <div>
               <img src={book.image_url} alt="#" id="bookImg" />
+              <Star stars={book.rating} reviews={book.review_count} />
             </div>
+
             <div>
               {favoriteChecker(book.id) ? (
                 <div>

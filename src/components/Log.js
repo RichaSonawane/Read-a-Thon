@@ -5,6 +5,8 @@ import { BOOK_DETAILS_URL } from './API';
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/authContext";
 import Progressbar from './Progressbar';
+import Star from './Star';
+
 
 const Log = () => {
   const { id } = useParams();
@@ -17,6 +19,9 @@ const Log = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [status, setStatus] = useState(true);
+
+  const [rating, setRating] = useState(0);
+  const [rating2, setRating2] = useState(0);
 
 const [progress, setProgress] = useState(0);
 
@@ -87,7 +92,8 @@ console.log("i m here", title)
         </select>
         <Progressbar value={progress} />
       </div>
-      <button onClick={() => setReviewStatus(true)} >Review</button>
+      <Star stars={book.rating} reviews={book.review_count}/>
+      <button onClick={() => setReviewStatus(true)}>Review</button>
       {reviewStatus ? (
         <div>
           <form onSubmit={handleSubmit}>

@@ -1,5 +1,6 @@
 import BallAnimation from '../assets/BallAnimation.mp4'
 
+
 const Home = () => {
     return (
       <main>
@@ -7,6 +8,7 @@ const Home = () => {
           <video src={BallAnimation} autoPlay loop muted id="video"></video>
         </div>
       </main>
+
     );
 }
 
