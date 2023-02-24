@@ -73,8 +73,8 @@ const handleFavorite=(book)=>{
             <Star stars={book.rating} reviews={book.review_count} />
             <div>
               {favoriteChecker(book.id) ? (
-                <button onClick={() => removeFromFavorites(book.id)}>
-                  Remove from Favorites
+                <button disabled onClick={() => removeFromFavorites(book.id)}>
+                  Added to Favorites
                 </button>
               ) : (
                 <button onClick={() => handleFavorite(book)}>

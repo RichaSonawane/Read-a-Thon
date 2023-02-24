@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/authContext";
 import Progressbar from './Progressbar';
 import Star from './Star';
+import Confetti from "react-confetti"
 
 
 const Log = () => {
@@ -24,6 +25,9 @@ const Log = () => {
   const [rating2, setRating2] = useState(0);
 
 const [progress, setProgress] = useState(0);
+const [pages, setPages]=useState(0)
+
+const [confetti, setConfetti]=useState(false)
 
   useEffect(() => {
     axios
@@ -57,7 +61,18 @@ console.log("i m here", title)
           .catch((err) => console.log(err));
     }
 
- 
+ const handlePageChange =()=>{
+  //console.log("i m here", pages)
+    if(book.num_pages>0){
+      setProgress(Math.round(( pages/ book.num_pages) * 100))
+      console.log("progress",progress)
+     setConfetti(!confetti)
+     setTimeout(() => {
+      setConfetti(confetti)
+     }, 3500);
+     
+    }
+ }
 
 
   return (
@@ -77,22 +92,26 @@ console.log("i m here", title)
         <p>{book.num_pages}</p>
       </div>
       <div>
-        <h3>How much did you read?</h3>
-        <select
-          name="progress"
-          id="progress"
-          onChange={(e) => setProgress(e.target.value)}
-        >
-          <option value="20">0%</option>
-          <option value="20">20%</option>
-          <option value="40">40%</option>
-          <option value="60">60%</option>
-          <option value="80">80%</option>
-          <option value="100">100%</option>
-        </select>
+        <h3>How many pages did you read today?</h3>
+        <input
+          placeholder="number of pages"
+          name="pages"
+        />
+        <h3>You are on which page number?</h3>
+        <input
+          placeholder="number of pages"
+          name="pages"
+          value={pages}
+          onChange={(e) => {
+            setPages(e.target.value);
+          }}
+        />
+       
+        <button onClick={handlePageChange}> Check your progress</button>
+       {confetti && <Confetti wind={0.03} gravity={0.2} />}
         <Progressbar value={progress} />
       </div>
-      <Star stars={book.rating} reviews={book.review_count}/>
+      <Star stars={book.rating} reviews={book.review_count} />
       <button onClick={() => setReviewStatus(true)}>Review</button>
       {reviewStatus ? (
         <div>
