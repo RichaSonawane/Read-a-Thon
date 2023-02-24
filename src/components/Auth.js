@@ -41,9 +41,9 @@ const Auth = () => {
            <form className='form auth-form' onSubmit={submitHandler}>
                <input
                    className='form-input'
-                   type="text" placeholder='Username' value={username} onChange={e=>setUsername(e.target.value)}/>
+                   type="text" placeholder='Username' autoComplete='username' value={username} onChange={e=>setUsername(e.target.value)}/>
                <input
-                   className='form-input' type='password' placeholder='Password' value={password} onChange={e=>setPassword(e.target.value)}/>
+                   className='form-input' type='password' autoComplete='current-password' placeholder='Password' value={password} onChange={e=>setPassword(e.target.value)}/>
                <button className='form-btn'>
                    {register ? 'Sign Up' : 'Login'}
                </button>

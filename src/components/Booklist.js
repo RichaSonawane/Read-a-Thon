@@ -33,6 +33,25 @@ const Booklist = () => {
      
     },[])
 
+const handleFavorite=(book)=>{
+ addToFavorites(book);
+ let body = {
+   bookId: book["id"],
+   title: book["title"],
+   image: book["image_url"],
+   userId: userId,
+ };
+
+  axios
+    .post("/userList", body, {
+      headers: {
+        authorization: token,
+      },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log("error in post book", err));
+};
+
 
 
   return (
@@ -58,7 +77,7 @@ const Booklist = () => {
                   Remove from Favorites
                 </button>
               ) : (
-                <button onClick={() => addToFavorites(book)}>
+                <button onClick={() => handleFavorite(book)}>
                   Add to Favorites
                 </button>
               )}

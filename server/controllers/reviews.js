@@ -87,16 +87,51 @@ module.exports = {
   },
   addBook: async (req, res) => {
     try {
-         const { bookId, title, image, userId} = req.body;
-         
-      await UserList.create({ bookid : bookId, title, imageurl : image,userid : userId});
+      const { bookId, title, image, userId} = req.body;
+
+      await UserList.create({
+        bookid: bookId,
+        title,
+        imageurl: image,
+        userId,
+      });
       res.sendStatus(200);
-    }
-    catch(error){
+    } catch (error) {
       console.log("ERROR IN add to userlist");
       console.log(error);
       res.sendStatus(400);
-    
     }
-}
-}
+  },
+  getBook: async (req, res) => {
+     try {
+       const { userId } = req.params;
+       const Userlist = await UserList.findAll({
+         where: { userId: userId },
+         include: [
+           {
+             model: User,
+             required: true,
+             attributes: [`username`],
+           },
+         ],
+       });
+       res.status(200).send(Userlist);
+     } catch (error) {
+       console.log("ERROR IN getCurrentUserBooks");
+       console.log(error);
+       res.sendStatus(400);
+     }    
+  },
+  deleteBook: async (req, res) => {
+     try {
+       const { id } = req.params;
+      await UserList.destroy({ where: { id: +id } });
+       res.sendStatus(200);
+     } catch (error) {
+       console.log("ERROR IN delete book");
+       console.log(error);
+       res.sendStatus(400);
+     }
+
+  },
+};

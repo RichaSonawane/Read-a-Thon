@@ -13,6 +13,5 @@ module.exports = {
     bookid: DataTypes.INTEGER,
     title: DataTypes.STRING,
     imageurl: DataTypes.TEXT,
-    userid: DataTypes.INTEGER
   }),
 };
