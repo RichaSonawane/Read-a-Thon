@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useContext,useRef} from 'react';
+import React, {useState, useEffect,useContext,useCallback} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BOOK_DETAILS_URL } from './API';
@@ -24,12 +24,14 @@ const Log = () => {
   const [rating, setRating] = useState(0);
   const [rating2, setRating2] = useState(0);
 
-const prevCountRef = useRef();
+
 
 const [progress, setProgress] = useState(0);
-const [pages, setPages]=useState(0)
+const [pages, setPages]=useState([])
 
 const [confetti, setConfetti]=useState(false)
+
+
 
   useEffect(() => {
     axios
@@ -40,23 +42,72 @@ const [confetti, setConfetti]=useState(false)
       .catch((err) => console.log(err));
   }, [id]);
 
+const getUsertracker = useCallback(() => {
+  axios
+    .get(`/tracker/${userId}`, {
+      headers: {
+        authorization: token,
+      },
+    })
+    .then((res) => {
+      console.log("resdata", res.data);
+
+
+      let result = res.data;
+
+      let data = result.filter((item) => item.bookid == id);
+      let lastElement = data.slice(-1);
+      let obj = lastElement[0];
+      console.log(obj.progress, "lastele");
+      setPages(obj.progress);
+
+
+    //  setProgress(Math.round((pages / book.num_pages) * 100));
+    //  console.log("pr",progress)
+
+      if (book.num_pages > 0) {
+    setProgress(Math.round((pages / book.num_pages) * 100));
+  //   // setConfetti(!confetti);
+  //   // setTimeout(() => {
+  //   //   setConfetti(confetti);
+  //   // }, 3500);
+  }
+    })
+    .catch((err) => console.log(err));
+}, [userId]);
+
 useEffect(() => {
- console.log("pages", pages);
+  getUsertracker();
+}, [getUsertracker]);
+
+useEffect(() => {
+
   if (book.num_pages > 0) {
     setProgress(Math.round((pages / book.num_pages) * 100));
-    // setConfetti(!confetti);
-    // setTimeout(() => {
-    //   setConfetti(confetti);
-    // }, 3500);
   }
-  if(book.num_pages===pages){
-    setConfetti(!confetti);
-    setTimeout(() => {
-      setConfetti(confetti);
-    }, 3500);
-  }
+}, [pages]);
 
-}, [pages,book.num_pages]);
+// useEffect(() => {
+//   axios
+//     .get(`/tracker/${userId}`)
+//     .then((res) => setProgress(res.data.progress))
+//     .catch((err) => console.log(err));
+
+  // if (book.num_pages > 0) {
+  //   setProgress(Math.round((pages / book.num_pages) * 100));
+  //   // setConfetti(!confetti);
+  //   // setTimeout(() => {
+  //   //   setConfetti(confetti);
+  //   // }, 3500);
+  // }
+  // if(book.num_pages===pages){
+  //   setConfetti(!confetti);
+  //   setTimeout(() => {
+  //     setConfetti(confetti);
+  //   }, 3500);
+  // }
+  //pages,book.num_pages,
+// }, [userId]);
 
  const handleSubmit = e => {
         e.preventDefault()
@@ -79,32 +130,48 @@ console.log("i m here", title)
           .catch((err) => console.log(err));
     }
 
- const handlePageChange =()=>{
-  //console.log("i m here", pages)
 
 
-    // if(book.num_pages>0){
-    //   setProgress(Math.round(( pages/ book.num_pages) * 100))
-    //   console.log("progress",progress)
-    //  setConfetti(!confetti)
-    //  setTimeout(() => {
-    //   setConfetti(confetti)
-    //  }, 3500);
-     
-    //}
- }
+// const HandleChange= (e) =>{
+//   setPages(e.current.value);
+//   console.log("pages", pages);
+//   if(book.num_pages>0){
+//       setProgress(Math.round(( pages/ book.num_pages) * 100))
+//      setConfetti(!confetti)
+//      setTimeout(() => {
+//       setConfetti(confetti)
+//      }, 3500);
+//     }
 
-const HandleChange= (e) =>{
-  setPages(e.current.value);
-  console.log("pages", pages);
+// }
+const HandlePageChange=(e)=>{
+console.log("im fired")
+  setPages(e.target.value)
+
+ setProgress(Math.round((pages / book.num_pages) * 100));
   if(book.num_pages>0){
-      setProgress(Math.round(( pages/ book.num_pages) * 100))
-     setConfetti(!confetti)
-     setTimeout(() => {
-      setConfetti(confetti)
-     }, 3500);
-    }
+     setProgress(Math.round(( pages/ book.num_pages) * 100))
+  }
+  console.log("newpage",pages)
+  let body={
+    progress:pages,
+    bookid: book.id,
+    userId
+  }
+  axios.post("/tracker", body,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data)
+            setProgress(res.data.progress)
+          })
+          .catch((err) => console.log(err));
 
+  
 }
 
 
@@ -125,6 +192,7 @@ const HandleChange= (e) =>{
         <p>{book.num_pages}</p>
       </div>
       <div>
+        <h3>Pages read already: {pages}</h3>
         <h3>How many pages did you read today?</h3>
         <input placeholder="number of pages" name="pages" />
         <h3>You are on which page number?</h3>
@@ -132,8 +200,9 @@ const HandleChange= (e) =>{
           placeholder="number of pages"
           name="pages"
           value={pages}
-          onChange={(e)=>setPages(e.target.value)}
+         onChange={(e)=>setPages(e.target.value)}
         />
+        <button onClick={HandlePageChange}>Record your Progress</button>
         {confetti && <Confetti wind={0.03} gravity={0.2} />}
         <Progressbar value={progress} />
       </div>

@@ -6,10 +6,11 @@ const { sequelize } = require("./util/database");
 const { User } = require("./models/user");
 const { Review } = require("./models/review");
 const { UserList } = require("./models/userList");
-//const {UserList}= require("./models/userList")
+const {Tracker}= require("./models/tracker")
 
 const { PORT } = process.env;
 const { register, login } = require("./controllers/auth");
+const { getTracker, addTracker } = require("./controllers/tracker");
 const { isAuthenticated } = require("./middleware/isAuthenticated");
 const {
   getAllReviews,
@@ -34,6 +35,9 @@ Review.belongsTo(User);
 User.hasMany(UserList);
 UserList.belongsTo(User);
 
+User.hasMany(Tracker);
+Tracker.belongsTo(User);
+
 //AUTH
 app.post('/register', register)
 app.post('/login', login)
@@ -51,6 +55,9 @@ app.post("/reviews", isAuthenticated, addReview);
 app.put("/reviews/:id", isAuthenticated, editReview);
 app.delete("/reviews/:id", isAuthenticated, deleteReview);
 
+
+app.get("/tracker/:userId", getTracker)
+app.post("/tracker", isAuthenticated, addTracker);
 // the force: true is for development -- it DROPS tables!!!
 // you can use it if you like while you are building
 // sequelize.sync({ force: true })

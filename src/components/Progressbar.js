@@ -3,8 +3,11 @@ import "./Progressbar.css";
 import { motion, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 
+
 function Progressbar({ value }) {
   const progressTextRef = useRef(null);
+
+
   useEffect(() => {
     const progressText = progressTextRef.current?.textContent;
     if (progressText != null) {
@@ -15,7 +18,12 @@ function Progressbar({ value }) {
         },
       });
     }
+  
   }, [value]);
+
+
+
+
   return (
     <div className="progressbar-container">
       <div className="progressbar">
