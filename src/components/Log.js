@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useContext} from 'react';
+import React, {useState, useEffect,useContext,useRef} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BOOK_DETAILS_URL } from './API';
@@ -24,6 +24,8 @@ const Log = () => {
   const [rating, setRating] = useState(0);
   const [rating2, setRating2] = useState(0);
 
+const prevCountRef = useRef();
+
 const [progress, setProgress] = useState(0);
 const [pages, setPages]=useState(0)
 
@@ -38,7 +40,23 @@ const [confetti, setConfetti]=useState(false)
       .catch((err) => console.log(err));
   }, [id]);
 
+useEffect(() => {
+ console.log("pages", pages);
+  if (book.num_pages > 0) {
+    setProgress(Math.round((pages / book.num_pages) * 100));
+    // setConfetti(!confetti);
+    // setTimeout(() => {
+    //   setConfetti(confetti);
+    // }, 3500);
+  }
+  if(book.num_pages===pages){
+    setConfetti(!confetti);
+    setTimeout(() => {
+      setConfetti(confetti);
+    }, 3500);
+  }
 
+}, [pages,book.num_pages]);
 
  const handleSubmit = e => {
         e.preventDefault()
@@ -63,16 +81,31 @@ console.log("i m here", title)
 
  const handlePageChange =()=>{
   //console.log("i m here", pages)
-    if(book.num_pages>0){
+
+
+    // if(book.num_pages>0){
+    //   setProgress(Math.round(( pages/ book.num_pages) * 100))
+    //   console.log("progress",progress)
+    //  setConfetti(!confetti)
+    //  setTimeout(() => {
+    //   setConfetti(confetti)
+    //  }, 3500);
+     
+    //}
+ }
+
+const HandleChange= (e) =>{
+  setPages(e.current.value);
+  console.log("pages", pages);
+  if(book.num_pages>0){
       setProgress(Math.round(( pages/ book.num_pages) * 100))
-      console.log("progress",progress)
      setConfetti(!confetti)
      setTimeout(() => {
       setConfetti(confetti)
      }, 3500);
-     
     }
- }
+
+}
 
 
   return (
@@ -93,22 +126,15 @@ console.log("i m here", title)
       </div>
       <div>
         <h3>How many pages did you read today?</h3>
-        <input
-          placeholder="number of pages"
-          name="pages"
-        />
+        <input placeholder="number of pages" name="pages" />
         <h3>You are on which page number?</h3>
         <input
           placeholder="number of pages"
           name="pages"
           value={pages}
-          onChange={(e) => {
-            setPages(e.target.value);
-          }}
+          onChange={(e)=>setPages(e.target.value)}
         />
-       
-        <button onClick={handlePageChange}> Check your progress</button>
-       {confetti && <Confetti wind={0.03} gravity={0.2} />}
+        {confetti && <Confetti wind={0.03} gravity={0.2} />}
         <Progressbar value={progress} />
       </div>
       <Star stars={book.rating} reviews={book.review_count} />

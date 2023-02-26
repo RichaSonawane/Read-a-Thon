@@ -29,6 +29,10 @@ function Progressbar({ value }) {
           }}
         />
       </div>
+      <div className="progressbar-text-container">
+        <p ref={progressTextRef}>0</p>
+        <p>%</p>
+      </div>
     </div>
   );
 }
