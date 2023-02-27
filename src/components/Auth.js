@@ -2,6 +2,7 @@ import {useState, useContext} from 'react';
 import axios from 'axios';
 import AuthContext from '../store/authContext';
 import { useNavigate } from "react-router-dom";
+import Features from './Features';
  
 const Auth = () => {
    const [username, setUsername] = useState('')
@@ -49,6 +50,7 @@ const Auth = () => {
                </button>
            </form>
            <button className='form-btn' onClick={()=>{setRegister(false)}}>Need to {register ? 'Login' : 'Sign Up'}?</button>
+       <Features/>
        </main>
    )
 }

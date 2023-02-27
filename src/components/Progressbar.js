@@ -33,7 +33,7 @@ function Progressbar({ value }) {
             width: `${value}%`,
           }}
           transition={{
-            duration: 2,
+            duration: 1,
           }}
         />
       </div>

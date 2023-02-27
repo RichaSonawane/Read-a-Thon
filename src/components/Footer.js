@@ -5,8 +5,8 @@ import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className={classes.footer}>
-      <div>
+    <footer>
+      <div className={classes.footer}>
         <h5>Follow us!</h5>
         <div className={classes["social_icons"]}>
           <a

@@ -27,10 +27,10 @@ const Log = () => {
 
 
 const [progress, setProgress] = useState(0);
-const [pages, setPages]=useState([])
+const [pages, setPages]=useState(0)
 
 const [confetti, setConfetti]=useState(false)
-
+const [showProgress, setShowProgress]= useState(false)
 
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const [confetti, setConfetti]=useState(false)
       .catch((err) => console.log(err));
   }, [id]);
 
+
 const getUsertracker = useCallback(() => {
   axios
     .get(`/tracker/${userId}`, {
@@ -52,7 +53,6 @@ const getUsertracker = useCallback(() => {
     .then((res) => {
       console.log("resdata", res.data);
 
-
       let result = res.data;
 
       let data = result.filter((item) => item.bookid == id);
@@ -60,18 +60,7 @@ const getUsertracker = useCallback(() => {
       let obj = lastElement[0];
       console.log(obj.progress, "lastele");
       setPages(obj.progress);
-
-
-    //  setProgress(Math.round((pages / book.num_pages) * 100));
-    //  console.log("pr",progress)
-
-      if (book.num_pages > 0) {
-    setProgress(Math.round((pages / book.num_pages) * 100));
-  //   // setConfetti(!confetti);
-  //   // setTimeout(() => {
-  //   //   setConfetti(confetti);
-  //   // }, 3500);
-  }
+    
     })
     .catch((err) => console.log(err));
 }, [userId]);
@@ -80,12 +69,12 @@ useEffect(() => {
   getUsertracker();
 }, [getUsertracker]);
 
-useEffect(() => {
 
-  if (book.num_pages > 0) {
-    setProgress(Math.round((pages / book.num_pages) * 100));
-  }
-}, [pages]);
+// useEffect(() => {
+//   if (book.num_pages > 0) {
+//     setProgress(Math.round((pages / book.num_pages) * 100));
+//   }
+// }, [pages]);
 
 // useEffect(() => {
 //   axios
@@ -128,9 +117,12 @@ console.log("i m here", title)
             navigate("/review");
           })
           .catch((err) => console.log(err));
+
+             
     }
 
 
+  
 
 // const HandleChange= (e) =>{
 //   setPages(e.current.value);
@@ -145,13 +137,12 @@ console.log("i m here", title)
 
 // }
 const HandlePageChange=(e)=>{
+ //e.preventDefault();
 console.log("im fired")
   setPages(e.target.value)
+console.log("pages,",pages, book.num_pages)
 
- setProgress(Math.round((pages / book.num_pages) * 100));
-  if(book.num_pages>0){
-     setProgress(Math.round(( pages/ book.num_pages) * 100))
-  }
+setShowProgress(true)
   console.log("newpage",pages)
   let body={
     progress:pages,
@@ -167,11 +158,34 @@ console.log("im fired")
           )
           .then((res) => {
             console.log(res.data)
-            setProgress(res.data.progress)
+            setShowProgress(true);
+            setPages(res.data.progress)
           })
           .catch((err) => console.log(err));
-
+ 
   
+       setProgress(Math.round((pages / book.num_pages) * 100));  
+       setPages(pages);
+       
+ 
+  // axios
+  //   .get(`/tracker/${userId}`, {
+  //     headers: {
+  //       authorization: token,
+  //     },
+  //   })
+  //   .then((res) => {
+  //     console.log("resdata", res.data);
+
+  //     let result = res.data;
+
+  //     let data = result.filter((item) => item.bookid == id);
+  //     let lastElement = data.slice(-1);
+  //     let obj = lastElement[0];
+  //     console.log(obj.progress, "lastele");
+  //     setPages(obj.progress);
+  //   })
+  //   .catch((err) => console.log(err));
 }
 
 
@@ -200,11 +214,11 @@ console.log("im fired")
           placeholder="number of pages"
           name="pages"
           value={pages}
-         onChange={(e)=>setPages(e.target.value)}
+          onChange={(e) => setPages(e.target.value)}
         />
         <button onClick={HandlePageChange}>Record your Progress</button>
+        {showProgress && <Progressbar value={progress} />}
         {confetti && <Confetti wind={0.03} gravity={0.2} />}
-        <Progressbar value={progress} />
       </div>
       <Star stars={book.rating} reviews={book.review_count} />
       <button onClick={() => setReviewStatus(true)}>Review</button>
