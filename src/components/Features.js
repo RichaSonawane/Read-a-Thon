@@ -25,14 +25,14 @@ const Features = () => {
       image:
         "https://images.unsplash.com/photo-1553729784-e91953dec042?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fGtpZCUyMGJvb2t8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
     },
+  
   ];
 
   return (
     <div className={`${styles.featuresWrapper} center`}>
       <div className={styles.featuresHeading}>
         <p>
-          We make it easy to boost literacy and create a reading culture in your
-          community.
+          Build a lasting reading habit and better remember what you read!
         </p>
       </div>
       <div className={`${styles.featuresListWrapper} center`}>

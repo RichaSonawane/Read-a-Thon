@@ -1,7 +1,7 @@
 .progressbar {
     /* Size */
     width: 450px;
-    height: 75px;
+    height: 50px;
 
     /* Content alignment */
     display: flex;
@@ -13,7 +13,7 @@
     border-radius: 60px;
     background-color: #494b52;
     box-shadow: 0px 0px 20px #111;
-
+    margin:10px;
     overflow: hidden;
 }
 
@@ -27,7 +27,7 @@
         180deg,
         rgb(142, 177, 242) 0%,
         rgb(58, 139, 239) 32%,
-        rgb(3, 87, 196) 100%
+        rgb(28, 107, 210) 100%
     );
 }
 
@@ -48,7 +48,7 @@
     flex-direction: row;
 
     /* Styling */
-    color: rgb(115, 6, 6);
+    color: rgb(19, 120, 252);
     font-family: montserrat;
     font-weight: bold;
     font-size: 30px;

@@ -70,7 +70,7 @@ const Favorites = () => {
             <div>
               <div>
                 <button onClick={() => handleDelete(book)}>
-                  Remove from Favorites
+                  Remove
                 </button>
                 <button onClick={() => navigate(`/books/${book.bookid}/log`)}>
                   Log

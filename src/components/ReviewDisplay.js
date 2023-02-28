@@ -9,8 +9,12 @@ const [view, setView] = useState("AllReviews");
   return (
     <div className="stack">
       <div className="tab-select">
-        <button onClick={() => setView("Reviews")}>Reviews By You</button>
-        <button onClick={() => setView("AllReviews")}>All Reviews</button>
+        <button className="revBtn" onClick={() => setView("Reviews")}>
+          Reviews By You
+        </button>
+        <button className="revBtn" onClick={() => setView("AllReviews")}>
+          All Reviews
+        </button>
       </div>
       {view === "Reviews" && <Reviews />}
       {view === "AllReviews" && <AllReviews />}

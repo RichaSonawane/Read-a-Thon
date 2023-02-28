@@ -39,12 +39,13 @@ const AllReviews = () => {
   });
 
   return mappedReviews.length >= 1 ? (
-    <main><h3>All Reviews</h3>
-        {mappedReviews}
-        </main>
+    <main>
+      <h3>All Reviews</h3>
+      {mappedReviews}
+    </main>
   ) : (
     <main>
-      <LoadingModal/>
+      <LoadingModal />
     </main>
   );
 }

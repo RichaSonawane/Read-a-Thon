@@ -6,9 +6,11 @@ const HomeSection = () => {
   return (
     <div className={`${styles.heroWrapper} center`}>
       <div className={`${styles.heroInner}`}>
-        <h2 className={styles.headerText}>Read more, together. Grow More.</h2>
+        <h2 className={styles.headerText}>
+          Reading tracker for readers who wants to read more.
+        </h2>
         <div className={styles.slogan}>
-          <h5>The leading solution for motivating young people to read</h5>
+          <h5>The leading solution for motivating young people to read.</h5>         
         </div>
 
         <div className={styles.heroImage}>

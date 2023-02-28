@@ -74,6 +74,8 @@ article {
 h1 {
   font-size: 2rem;
   font-weight: bold;
+    margin: 75px 10px 30px 10px;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -119,7 +121,9 @@ main {
 	box-sizing: border-box;
 	background-size: cover;
 	text-align: center;
-
+	flex-wrap: wrap;
+	justify-content: center;
+	
 }
 
 .flex-row {
@@ -166,6 +170,7 @@ main {
 	border: none;
 	padding: 0;
 	margin: 0;
+	width:90px
 }
 
 .logout-btn:hover {
@@ -202,6 +207,7 @@ main {
 	padding: 10px 20px;
 	transition: .5s;
 	margin-top: 10px;
+	
 }
 
 .form-btn:hover {
@@ -262,12 +268,13 @@ main {
 	border-radius: 5px;
 	margin: 25px;
 	padding: 15px;
+	text-align: left;
 }
 
 #video {
 	
   width: 100%;
-  height: 74vh;
+  height: 79vh;
   display: flex;
   flex-direction:column;
   align-items:center;
@@ -275,7 +282,7 @@ main {
   gap:20px;
   color: white;
   background-size: cover;
-	
+
 }
 .homeVideo{
 	 background-size: cover;
@@ -325,7 +332,7 @@ button {
 	padding: 10px 20px;
 	transition: .5s;
 	margin-top: 10px;
-	width:auto;
+	width: 150px;
 	font-size: 15px;
 }
 
@@ -338,13 +345,10 @@ button:hover {
 .book-details{
 
 	display: flex;
-	justify-content:space-evenly;
-	padding: 10px;
-	flex-wrap: wrap;
   box-sizing: border-box;
 align-items: center;
 margin: 30px;
-height: 80%;
+height: 40%;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -354,18 +358,21 @@ height: 80%;
   border-radius: 3px;
   align-self: center;
   flex-wrap: wrap;
-
+justify-content: center;
+ font-size: 1rem;
 }
 
 
 .book-details h2
 
-.book-image{
-	width: 100px;
+.bookimage{
+	width: 200px;
+	height: 100px;
+	text-align: center;
 }
 
 .book-description{
-	width:80%;
+	width:50%;
 	height: auto;
 	align-items:flex-start;
   display: flex;
@@ -379,7 +386,52 @@ height: 80%;
   flex-wrap: wrap;
 
 }
+.bookFirstPart{
+	width: 100%;
+  height: 600px;
+  align-items:center;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  justify-content:center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  align-self: center;
+  flex-wrap: wrap;
+}
+.log{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 40vw;
+  height: fit-content;
+  gap: 10px;
+  margin: 10px;
+  flex-wrap: wrap;
+   margin-left: 200px;
+   box-sizing: border-box;
+}
+.questions{
+	display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 30px;
+  width: auto;
+    flex-direction: row;
+}
+.record{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
 
+.reviewForm{
+	display: flex;
+	margin: 10px;
+}
 .dropdowncontent {
   display: none;
   position: absolute;
@@ -388,4 +440,13 @@ height: 80%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
+}
+.revBtn{
+	width:300px
+}
+.tab-select{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
 }

@@ -58,7 +58,7 @@ const getUsertracker = useCallback(() => {
       let data = result.filter((item) => item.bookid == id);
       let lastElement = data.slice(-1);
       let obj = lastElement[0];
-      console.log(obj.progress, "lastele");
+    //  console.log(obj.progress, "lastele");
       setPages(obj.progress);
     
     })
@@ -157,7 +157,7 @@ setShowProgress(true)
             }
           )
           .then((res) => {
-            console.log(res.data)
+            console.log("here",res.data)
             setShowProgress(true);
             setPages(res.data.progress)
           })
@@ -166,7 +166,16 @@ setShowProgress(true)
   
        setProgress(Math.round((pages / book.num_pages) * 100));  
        setPages(pages);
-       
+
+       if(book.num_pages==pages){
+     setConfetti(!confetti)
+     setTimeout(() => {
+      setConfetti(confetti)
+     }, 4000);
+
+    
+    }
+
  
   // axios
   //   .get(`/tracker/${userId}`, {
@@ -190,79 +199,92 @@ setShowProgress(true)
 
 
   return (
-    <div className="book-details">
-      <div className="book-image">
-        <h2>{book.title}</h2>
-        <img src={book.image_url} alt="about book" />
-      </div>
-      <div className="book-description">
-        <h2>Description</h2>
-        <p>{book.description}</p>
-        <h2>Authors</h2>
-        <p>{book.authors}</p>
-        <h2>Genres</h2>
-        <p>{book.genres}</p>
-        <h2>Pages</h2>
-        <p>{book.num_pages}</p>
-      </div>
-      <div>
-        <h3>Pages read already: {pages}</h3>
-        <h3>How many pages did you read today?</h3>
-        <input placeholder="number of pages" name="pages" />
-        <h3>You are on which page number?</h3>
-        <input
-          placeholder="number of pages"
-          name="pages"
-          value={pages}
-          onChange={(e) => setPages(e.target.value)}
-        />
-        <button onClick={HandlePageChange}>Record your Progress</button>
-        {showProgress && <Progressbar value={progress} />}
-        {confetti && <Confetti wind={0.03} gravity={0.2} />}
-      </div>
-      <Star stars={book.rating} reviews={book.review_count} />
-      <button onClick={() => setReviewStatus(true)}>Review</button>
-      {reviewStatus ? (
-        <div>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <textarea
-                type="text"
-                placeholder="Write review here"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="form-input add-post-input textarea"
-              />
-              <div className="flex-row status-container">
-                <div className="radio-btn">
-                  <label htmlFor="private-status">private:</label>
-                  <input
-                    type="radio"
-                    name="status"
-                    id="private-status"
-                    value={true}
-                    onChange={(e) => setStatus(e.target.value)}
-                    checked={true}
-                  />
-                </div>
-                <div className="radio-btn">
-                  <label htmlFor="public-status">public:</label>
-                  <input
-                    type="radio"
-                    name="status"
-                    id="public-status"
-                    value={false}
-                    onChange={(e) => setStatus(e.target.value)}
-                  />
-                </div>
-              </div>
-              <button className="form-btn">submit</button>
-            </div>
-          </form>
+    <div>
+      <div className="book-details">
+        <div className="bookFirstPart">
+          <div className="bookimage">
+            <h2>{book.title}</h2>
+            <img src={book.image_url} alt="about book" />
+          </div>
+          <div className="book-description">
+            <h2>Description</h2>
+            <p>{book.description}</p>
+            <h2>Author</h2>
+            <p>{book.authors}</p>
+            <h2>Genre</h2>
+            <p>{book.genres}</p>
+            <h2>Pages</h2>
+            <p>{book.num_pages}</p>
+            <Star stars={book.rating} reviews={book.review_count} />
+          </div>
         </div>
-      ) : (
-        <h1> </h1>
-      )}
+        <div className="log">
+          <div>
+            <h3>You are on page number: {pages}</h3>
+          </div>
+          <div className="questions">
+            <h3>How many pages did you read today?</h3>
+            <input placeholder="number of pages" name="pages" />
+          </div>
+          <div className="questions">
+            <h3>which page number you are on?</h3>
+            <input
+              placeholder="number of pages"
+              name="pages"
+              value={pages}
+              onChange={(e) => setPages(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="record">
+          <h6>click to record your progress!</h6>
+          <button onClick={HandlePageChange}>Record</button>
+        </div>
+        {showProgress && <Progressbar value={progress} />}
+        {confetti && <Confetti wind={0.05} gravity={0.5} />}
+        <button onClick={() => setReviewStatus(true)}>Review</button>
+        {reviewStatus ? (
+          <div className="reviewForm">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <textarea
+                  type="text"
+                  placeholder="Write review here"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  className="form-input add-post-input textarea"
+                />
+                <div className="flex-row status-container">
+                  <div className="radio-btn">
+                    <label htmlFor="private-status">private:</label>
+                    <input
+                      type="radio"
+                      name="status"
+                      id="private-status"
+                      value={true}
+                      onChange={(e) => setStatus(e.target.value)}
+                      checked={true}
+                    />
+                  </div>
+                  <div className="radio-btn">
+                    <label htmlFor="public-status">public:</label>
+                    <input
+                      type="radio"
+                      name="status"
+                      id="public-status"
+                      value={false}
+                      onChange={(e) => setStatus(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <button className="form-btn">submit</button>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <h1> </h1>
+        )}
+      </div>
     </div>
   );
       }

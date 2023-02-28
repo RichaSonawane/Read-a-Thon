@@ -74,7 +74,7 @@ const handleFavorite=(book)=>{
             <div>
               {favoriteChecker(book.id) ? (
                 <button disabled onClick={() => removeFromFavorites(book.id)}>
-                  Added to Favorites
+                  Already added
                 </button>
               ) : (
                 <button onClick={() => handleFavorite(book)}>
