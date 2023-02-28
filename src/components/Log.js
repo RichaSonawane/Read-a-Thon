@@ -223,8 +223,8 @@ setShowProgress(true)
             <h3>You are on page number: {pages}</h3>
           </div>
           <div className="questions">
-            <h3>How many pages did you read today?</h3>
-            <input placeholder="number of pages" name="pages" />
+            <h3>How many minutes did you read today?</h3>
+            <input placeholder="number of minutes" name="pages" />
           </div>
           <div className="questions">
             <h3>which page number you are on?</h3>
